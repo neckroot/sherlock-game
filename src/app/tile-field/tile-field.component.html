@@ -1,1 +1,3 @@
-<p>tile-field works!</p>
+@for (col of cols; track col) {
+    <app-tile [row]="row" [col]="col"></app-tile>
+}

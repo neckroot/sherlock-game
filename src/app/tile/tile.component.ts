@@ -1,12 +1,19 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-tile',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './tile.component.html',
   styleUrl: './tile.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TileComponent {}
+export class TileComponent {
+  @Input() row!: number;
+  @Input() col!: number;
+
+  readonly chunkSize = 64;
+
+  public get bgPositionX() {
+    return -(this.row * 6 + this.col) * this.chunkSize;
+  }
+}
