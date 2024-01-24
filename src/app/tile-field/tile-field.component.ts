@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TileComponent } from '../tile/tile.component';
+import { TileField } from './tile-field.model';
 
 @Component({
   selector: 'app-tile-field',
@@ -11,9 +12,5 @@ import { TileComponent } from '../tile/tile.component';
 })
 export class TileFieldComponent {
   @Input() id!: number;
-  readonly cols = Array.from(Array(6).keys());
-
-  public get row() {
-    return Math.floor(this.id / 6);
-  }
+  @Input() tileField!: TileField;
 }

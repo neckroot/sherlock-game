@@ -2,5 +2,7 @@
     [style.background-position-x.px]="bgPositionX"
     [style.width.px]="chunkSize"
     [style.height.px]="chunkSize"
+    (contextmenu)="removeTile($event)"
+    (click)="setTileAsAnswer()"
 >
 </div>

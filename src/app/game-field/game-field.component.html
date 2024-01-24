@@ -1,3 +1,6 @@
-@for (id of tileFieldsID; track id) {
-    <app-tile-field [id]="id"></app-tile-field>
+@for (tileField of gameField$ | async; track tileField[0]) {
+    <app-tile-field
+            [id]="tileField[0]"
+            [tileField]="tileField[1]"
+    ></app-tile-field>
 }
