@@ -1,7 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { TileFieldComponent } from '../tile-field/tile-field.component';
 import { GameFieldService } from './services/game-field.service';
 import { AsyncPipe } from '@angular/common';
+import { GameService } from '../services/game.service';
 
 @Component({
   selector: 'app-game-field',
@@ -11,8 +17,13 @@ import { AsyncPipe } from '@angular/common';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameFieldComponent {
+export class GameFieldComponent implements OnInit {
   private _gameFieldService = inject(GameFieldService);
+  private _gameService = inject(GameService);
 
-  public gameField$ = this._gameFieldService.gameField;
+  public gameField$ = this._gameFieldService.gameField$;
+
+  ngOnInit() {
+    this._gameService.gameStatus$.subscribe((value) => console.log(value));
+  }
 }
