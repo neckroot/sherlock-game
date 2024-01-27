@@ -3,6 +3,7 @@ import { Clue, CluesValue } from '../clue.model';
 import { Tile } from '../../tile/tile.model';
 import { randomN, range } from '../../utils/utils';
 import { BehaviorSubject } from 'rxjs';
+import { FIELD_SIZE } from '../../utils/game-constants';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class ClueService {
 
     const tilesCount = type.startsWith('two') ? 2 : 3;
     const tiles: Tile[] = [];
-    const field: Tile[] = range(36);
+    const field: Tile[] = range(FIELD_SIZE);
 
     for (const _ of range(tilesCount)) {
       tiles.push(...field.splice(randomN(field.length), 1));

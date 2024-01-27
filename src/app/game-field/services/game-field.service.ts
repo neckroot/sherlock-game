@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { GameField } from '../game-field.model';
 import { TileField } from '../../tile-field/tile-field.model';
 import { range, shuffle } from '../../utils/utils';
+import { COLUMN_SIZE, FIELD_SIZE, ROW_SIZE } from '../../utils/game-constants';
 
 @Injectable({
   providedIn: 'root',
@@ -18,11 +19,11 @@ export class GameFieldService {
   private _createGameGoal() {
     const field: GameField = new Map<number, TileField>();
 
-    for (let i = 0; i < 6; i++) {
-      const fieldRow = shuffle(range(6 * i, 6 * (i + 1)));
+    for (let i = 0; i < COLUMN_SIZE; i++) {
+      const fieldRow = shuffle(range(COLUMN_SIZE * i, COLUMN_SIZE * (i + 1)));
 
-      for (let j = 6 * i; j < 6 * (i + 1); j++) {
-        field.set(j, [fieldRow[j % 6]]);
+      for (let j = COLUMN_SIZE * i; j < COLUMN_SIZE * (i + 1); j++) {
+        field.set(j, [fieldRow[j % COLUMN_SIZE]]);
       }
     }
 
@@ -32,11 +33,11 @@ export class GameFieldService {
   public setTileAsAnswer(tileID: number, tileFieldID: number) {
     if (this.gameField$.value.get(tileFieldID)!.length === 1) return;
 
-    const rowStartID = Math.floor(tileFieldID / 6) * 6;
+    const firstTileInRow = Math.floor(tileFieldID / COLUMN_SIZE) * COLUMN_SIZE;
 
     for (
-      let tileFieldID = rowStartID;
-      tileFieldID < rowStartID + 6;
+      let tileFieldID = firstTileInRow;
+      tileFieldID < firstTileInRow + COLUMN_SIZE;
       tileFieldID++
     ) {
       this.removeTile(tileID, tileFieldID);
@@ -53,19 +54,19 @@ export class GameFieldService {
     this._gameField$.next(
       this.gameField$.value.set(
         tileFieldID,
-        tileField.filter((id) => id !== tileID)
-      )
+        tileField.filter((id) => id !== tileID),
+      ),
     );
   }
 
   private _createField() {
     const field: GameField = new Map<number, TileField>();
 
-    for (let i = 0; i < 36; i++) {
+    for (let i = 0; i < FIELD_SIZE; i++) {
       let tileField: TileField = [];
 
-      for (let j = 0; j < 6; j++) {
-        tileField.push(j + Math.floor(i / 6) * 6);
+      for (let j = 0; j < COLUMN_SIZE; j++) {
+        tileField.push(j + Math.floor(i / COLUMN_SIZE) * COLUMN_SIZE);
       }
 
       field.set(i, tileField);

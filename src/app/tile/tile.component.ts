@@ -6,6 +6,7 @@ import {
 } from '@angular/core';
 import { Tile } from './tile.model';
 import { GameFieldService } from '../game-field/services/game-field.service';
+import { TILE_IMAGE_SIZE } from '../utils/game-constants';
 
 @Component({
   selector: 'app-tile',
@@ -17,11 +18,10 @@ import { GameFieldService } from '../game-field/services/game-field.service';
 export class TileComponent {
   @Input() tile!: Tile;
   @Input() tileFieldId!: number;
-  readonly chunkSize = 64;
   private _gameFieldService = inject(GameFieldService);
 
   public get bgPositionX() {
-    return -this.tile * this.chunkSize;
+    return -this.tile * TILE_IMAGE_SIZE;
   }
 
   public removeTile(event: UIEvent) {
@@ -32,4 +32,6 @@ export class TileComponent {
   public setTileAsAnswer() {
     this._gameFieldService.setTileAsAnswer(this.tile, this.tileFieldId);
   }
+
+  protected readonly TILE_IMAGE_SIZE = TILE_IMAGE_SIZE;
 }

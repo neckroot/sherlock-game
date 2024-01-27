@@ -1,7 +1,7 @@
 <div
     [style.background-position-x.px]="bgPositionX"
-    [style.width.px]="chunkSize"
-    [style.height.px]="chunkSize"
+    [style.width.px]="TILE_IMAGE_SIZE"
+    [style.height.px]="TILE_IMAGE_SIZE"
     (contextmenu)="removeTile($event)"
     (click)="setTileAsAnswer()"
 >
