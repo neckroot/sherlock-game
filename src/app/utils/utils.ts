@@ -1,6 +1,11 @@
-import { Tile } from '../tile/tile.model';
-import { COLUMN_SIZE, FIELD_SIZE, ROW_SIZE } from './game-constants';
-
+/**
+ * Перемешивает элементы массива, используя алгоритм Фишера-Йейтса.
+ * Оригинальный массив остается неизменным, возвращается новый массив с перемешанными элементами.
+ *
+ * @param array - Массив, который требуется перемешать.
+ * @returns Новый массив с элементами, перемешанными в случайном порядке.
+ *
+ */
 export function shuffle<T>(array: Array<T>): Array<T> {
   const shuffled = array.slice();
 
@@ -27,10 +32,6 @@ export function range(end: number, start: number = 0): number[] {
   return Array.from({ length: end - start }, (_, i) => start + i);
 }
 
-export function getMapValues<T, K>(map: Map<T, K[]>): K[] {
-  return [...map.values()].flat();
-}
-
 /**
  * Генерирует случайное целое число из заданного диапазона.
  * @param {number} to - Конечное значение диапазона (не включительно).
@@ -41,14 +42,4 @@ export function randomN(to: number, from: number = 0): number {
   if (to < from) [to, from] = [from, to];
 
   return from + Math.floor(Math.random() * (to - from));
-}
-
-export function columnNeighbors(tile: Tile) {
-  return range(ROW_SIZE).map((elem) => elem * ROW_SIZE + (tile % ROW_SIZE));
-}
-
-export function horizontalNeighbors(tile: Tile, field?: number[]) {
-  const tiles = field ?? range(FIELD_SIZE);
-
-  return tiles.filter((_, id) => !columnNeighbors(tile).includes(id));
 }

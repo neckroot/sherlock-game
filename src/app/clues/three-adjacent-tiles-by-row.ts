@@ -1,5 +1,6 @@
-import { columnNeighbors, randomN } from '../utils/utils';
+import { randomN } from '../utils/utils';
 import { COLUMN_SIZE, ROW_SIZE } from '../utils/game-constants';
+import { columnNeighbors } from '../tile/tile.model';
 
 export function threeAdjacentTilesByRow() {
   const anyColumn = randomN(COLUMN_SIZE);

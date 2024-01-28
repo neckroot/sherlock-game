@@ -1,11 +1,13 @@
-import { horizontalNeighbors, randomN } from '../utils/utils';
+import { randomN } from '../utils/utils';
 import { COLUMN_SIZE, FIELD_SIZE, ROW_SIZE } from '../utils/game-constants';
+import { getColumnID, horizontalNeighbors } from '../tile/tile.model';
 
 export function twoTilesOrderByRow() {
   const firstTileID = randomN(FIELD_SIZE);
-  const columnIndexWithFirstTile = Math.floor(firstTileID / COLUMN_SIZE);
-  const secondTileID = horizontalNeighbors(firstTileID)[FIELD_SIZE - ROW_SIZE];
-  const columnIndexWithSecondTile = Math.floor(secondTileID / COLUMN_SIZE);
+  const columnIndexWithFirstTile = getColumnID(firstTileID);
+  const secondTileID =
+    horizontalNeighbors(firstTileID)[randomN(FIELD_SIZE - ROW_SIZE)];
+  const columnIndexWithSecondTile = getColumnID(secondTileID);
 
   if (columnIndexWithFirstTile > columnIndexWithSecondTile) {
     return [secondTileID, firstTileID];

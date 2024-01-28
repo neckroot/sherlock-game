@@ -1,16 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Clue, CluesValue } from '../clue.model';
-import { Tile } from '../../tile/tile.model';
+import { Clue, CluesFunctionContainer } from '../clue.model';
 import { randomN, range } from '../../utils/utils';
 import { BehaviorSubject } from 'rxjs';
-import { FIELD_SIZE } from '../../utils/game-constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ClueService {
   public clues = new BehaviorSubject(this._clues);
-  constructor() {}
 
   public filteredClues(by: 'row' | 'column') {
     return this.clues.value.filter((clue) => clue.type.endsWith(by.slice(1)));
@@ -18,8 +15,8 @@ export class ClueService {
 
   private get _clues() {
     const clues: Clue[] = [];
-    //for testing generate 10 clues.
-    for (const _ of range(10)) {
+    //for testing generate 20 clues.
+    for (const _ of range(20)) {
       clues.push(this._generateClue());
     }
 
@@ -27,20 +24,13 @@ export class ClueService {
   }
 
   private _generateClue(): Clue {
-    const type = CluesValue[randomN(CluesValue.length)];
-
-    const tilesCount = type.startsWith('two') ? 2 : 3;
-    const tiles: Tile[] = [];
-    const field: Tile[] = range(FIELD_SIZE);
-
-    for (const _ of range(tilesCount)) {
-      tiles.push(...field.splice(randomN(field.length), 1));
-    }
+    const anyClue =
+      CluesFunctionContainer[randomN(CluesFunctionContainer.length)];
 
     return {
-      type: type,
+      type: anyClue[0],
       status: false,
-      tiles: tiles,
+      tiles: anyClue[1](),
     };
   }
 }

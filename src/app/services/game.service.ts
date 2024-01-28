@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { GameField } from '../game-field/game-field.model';
-import { getMapValues } from '../utils/utils';
+import { GameField, getMapValues } from '../game-field/game-field.model';
 import { GameFieldService } from '../game-field/services/game-field.service';
 import { BehaviorSubject } from 'rxjs';
 
@@ -23,7 +22,7 @@ export class GameService {
     if (this._isSolved(gameField)) {
       return this._isSolutionCorrect(
         gameField,
-        this._gameFieldService.gameGoal
+        this._gameFieldService.gameGoal,
       );
     }
 
