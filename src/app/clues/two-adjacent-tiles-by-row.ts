@@ -3,7 +3,7 @@ import { COLUMN_SIZE, FIELD_SIZE } from '../utils/game-constants';
 
 export function twoAdjacentTilesByRow() {
   const firstTileID = randomN(FIELD_SIZE);
-  const columnIndexWithFirstTile = Math.floor(firstTileID / COLUMN_SIZE);
+  const columnIndexWithFirstTile = firstTileID % COLUMN_SIZE;
   const suitableTiles: number[] = [];
 
   if (columnIndexWithFirstTile !== 0) {

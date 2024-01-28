@@ -1,5 +1,5 @@
 import { Tile } from '../tile/tile.model';
-import { COLUMN_SIZE, FIELD_SIZE, ROW_SIZE } from './game-constants';
+import { FIELD_SIZE, ROW_SIZE } from './game-constants';
 
 export function shuffle<T>(array: Array<T>): Array<T> {
   const shuffled = array.slice();
@@ -50,5 +50,5 @@ export function columnNeighbors(tile: Tile) {
 export function horizontalNeighbors(tile: Tile, field?: number[]) {
   const tiles = field ?? range(FIELD_SIZE);
 
-  return tiles.filter((_, id) => !columnNeighbors(tile).includes(id));
+  return tiles.filter((value) => !columnNeighbors(tile).includes(value));
 }

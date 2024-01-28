@@ -1,14 +1,9 @@
-import {
-  columnNeighbors,
-  horizontalNeighbors,
-  randomN,
-  range,
-} from '../utils/utils';
+import { horizontalNeighbors, randomN } from '../utils/utils';
 import { COLUMN_SIZE, FIELD_SIZE } from '../utils/game-constants';
 
 export function twoNotAdjacentTilesByRow() {
   const firstTileID = randomN(FIELD_SIZE);
-  const columnIndexWithFirstTile = Math.floor(firstTileID / COLUMN_SIZE);
+  const columnIndexWithFirstTile = firstTileID % COLUMN_SIZE;
   let suitableTiles = horizontalNeighbors(firstTileID);
 
   if (columnIndexWithFirstTile !== 0) {
