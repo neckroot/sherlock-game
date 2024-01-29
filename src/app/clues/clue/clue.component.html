@@ -1,1 +1,3 @@
-<div>{{clue.type}} : {{clue.tiles}}</div>
+@for (tile of clue.tiles; track $index) {
+    <app-tile [tileSize]="clueMinSideSize - 6" [tile]="answers.get(tile)![0]"></app-tile>
+}

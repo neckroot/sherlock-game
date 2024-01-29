@@ -12,6 +12,5 @@ import { ClueComponent } from '../../clues/clue/clue.component';
 })
 export class VerticalClueFieldComponent {
   private _clueService = inject(ClueService);
-
   public clues = this._clueService.filteredClues('row');
 }

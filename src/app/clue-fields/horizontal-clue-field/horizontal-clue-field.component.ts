@@ -13,8 +13,5 @@ import { ClueComponent } from '../../clues/clue/clue.component';
 })
 export class HorizontalClueFieldComponent {
   private _clueService = inject(ClueService);
-
   public clues = this._clueService.filteredClues('column');
-
-  constructor() {}
 }
