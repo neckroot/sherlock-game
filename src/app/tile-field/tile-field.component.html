@@ -1,3 +1,8 @@
 @for (tile of tileField; track tile) {
-    <app-tile [tile]="tile" [tileFieldId]="id"></app-tile>
+    <app-tile
+            [tile]="tile"
+            [tileSize]="48"
+            (click)="setTileAsAnswer(tile, id)"
+            (contextmenu)="$event.preventDefault(); removeTile(tile, id)"
+    ></app-tile>
 }

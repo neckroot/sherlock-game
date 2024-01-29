@@ -1,37 +1,28 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
+  HostBinding,
   Input,
 } from '@angular/core';
 import { Tile } from './tile.model';
-import { GameFieldService } from '../game-field/services/game-field.service';
-import { TILE_IMAGE_SIZE } from '../utils/game-constants';
 
 @Component({
   selector: 'app-tile',
-  standalone: true,
   templateUrl: './tile.component.html',
   styleUrl: './tile.component.scss',
+  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TileComponent {
   @Input() tile!: Tile;
-  @Input() tileFieldId!: number;
-  private _gameFieldService = inject(GameFieldService);
 
-  public get bgPositionX() {
-    return -this.tile * TILE_IMAGE_SIZE;
+  @HostBinding('style.width.px')
+  @HostBinding('style.height.px')
+  @Input()
+  tileSize!: number;
+
+  @HostBinding('style.background-position-x.px')
+  get bgPositionX() {
+    return -this.tile * this.tileSize;
   }
-
-  public removeTile(event: UIEvent) {
-    event.preventDefault();
-    this._gameFieldService.removeTile(this.tile, this.tileFieldId);
-  }
-
-  public setTileAsAnswer() {
-    this._gameFieldService.setTileAsAnswer(this.tile, this.tileFieldId);
-  }
-
-  protected readonly TILE_IMAGE_SIZE = TILE_IMAGE_SIZE;
 }
